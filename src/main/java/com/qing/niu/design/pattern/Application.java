@@ -19,7 +19,7 @@ import org.springframework.context.annotation.ImportResource;
  * @date 2018/10/9
  */
 @SpringBootApplication(exclude = {SpringDataWebAutoConfiguration.class,
-        FallbackWebSecurityAutoConfiguration.class, SpringBootWebSecurityConfiguration.class})
+        FallbackWebSecurityAutoConfiguration.class,SpringBootWebSecurityConfiguration.class})
 @ImportResource({"classpath:spring/application-context.xml"})
 public class Application extends SpringBootServletInitializer{
 
