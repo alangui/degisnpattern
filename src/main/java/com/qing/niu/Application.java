@@ -1,4 +1,4 @@
-package com.qing.niu.design.pattern;
+package com.qing.niu;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

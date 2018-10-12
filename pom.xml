@@ -93,7 +93,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>com.qing.niu.design.pattern.Application</mainClass>
+                    <mainClass>com.qing.niu.Application</mainClass>
                 </configuration>
             </plugin>
             <plugin>
