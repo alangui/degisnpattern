@@ -17,6 +17,8 @@ public class Base64 {
 
     private static final int[] DECODE_CHARSET = new int[128];
 
+    private Base64(){}
+
     /**
      * base64 定义的字符集，
      * 不同的base64实现，字符集定义会不同
@@ -49,7 +51,7 @@ public class Base64 {
      * @return base64编码后字符串
      * @throws UnsupportedEncodingException 不支持的编码异步，charset值填的不合法或不支持
      */
-    public String encode(String inputStr, String charset, boolean padding) throws UnsupportedEncodingException {
+    public static String encode(String inputStr, String charset, boolean padding) throws UnsupportedEncodingException {
         String encodeStr = null;
         byte[] bytes = inputStr.getBytes(charset);
 
@@ -64,7 +66,7 @@ public class Base64 {
      * @param padding 通过不断将每3个字节转换为4个Base64字符之后，是否在末尾添加字符“=”
      * @return base64编码后字符串
      */
-    public String encode(byte[] bytes, boolean padding) {
+    public static String encode(byte[] bytes, boolean padding) {
         // 4 6-bit groups
         int group_6bit_1,group_6bit_2,group_6bit_3,group_6bit_4;
         // 3 8-bits group
@@ -131,7 +133,7 @@ public class Base64 {
      * @param code 经base64编码后的字符串
      * @return base64解码后的字节数组
      */
-    public byte[] decode(String code) {
+    public static byte[] decode(String code) {
         char[] chars = code.toCharArray();
         // 4 6-bit groups
         int group_6bit_1,group_6bit_2,group_6bit_3,group_6bit_4;
