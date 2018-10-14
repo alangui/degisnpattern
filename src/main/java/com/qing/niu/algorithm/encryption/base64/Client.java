@@ -29,5 +29,21 @@ public class Client {
         log.info("Base64解码后的字符串：{}",decodeStr);
         log.info("===============================================================");
 
+        String waitEnc = "hockey boy 桂";
+        //3des加密
+        String key = "cf410f84904a44cc8a7f4811";
+        log.info("密钥长度:{},待加密字符串:{}",key.length(),waitEnc);
+        String threeDesEncStr = ThreeDes.encryptThreeDESECB(waitEnc,key);
+        log.info("3des加密结果:{}",threeDesEncStr);
+        String threeDesDecStr = ThreeDes.decryptThreeDESECB(threeDesEncStr,"cf410f84904a44cc8a7f4811");
+        log.info("3des解密结果:{}",threeDesDecStr);
+
+        //des加密
+        String desKey = "cf410f80";
+        log.info("密钥长度:{},待加密字符串:{}",key.length(),waitEnc);
+        String desEncStr = ThreeDes.encryptDESCBC(waitEnc,desKey);
+        log.info("des加密结果:{}",desEncStr);
+        String desDecStr = ThreeDes.decryptDESCBC(desEncStr,"cf410f80");
+        log.info("des解密结果:{}",desDecStr);
     }
 }
