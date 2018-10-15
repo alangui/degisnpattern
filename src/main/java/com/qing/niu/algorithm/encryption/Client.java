@@ -1,5 +1,7 @@
-package com.qing.niu.algorithm.encryption.base64;
+package com.qing.niu.algorithm.encryption;
 
+import com.qing.niu.algorithm.encryption.base64.Base64;
+import com.qing.niu.algorithm.encryption.three_des.ThreeDes;
 import lombok.extern.slf4j.Slf4j;
 
 import java.nio.charset.Charset;
