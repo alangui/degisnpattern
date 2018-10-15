@@ -1,4 +1,4 @@
-package com.qing.niu.algorithm.encryption.base64;
+package com.qing.niu.algorithm.encryption.three_des;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
