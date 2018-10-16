@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.security.FallbackWebSecurityAutoCo
 import org.springframework.boot.autoconfigure.security.SpringBootWebSecurityConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
 
 /**
@@ -21,6 +22,7 @@ import org.springframework.context.annotation.ImportResource;
 @SpringBootApplication(exclude = {SpringDataWebAutoConfiguration.class,
         FallbackWebSecurityAutoConfiguration.class,SpringBootWebSecurityConfiguration.class})
 @ImportResource({"classpath:spring/application-context.xml"})
+@ComponentScan(basePackages = {"web"})
 public class Application extends SpringBootServletInitializer{
 
     @Override
