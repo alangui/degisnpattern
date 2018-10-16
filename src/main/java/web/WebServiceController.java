@@ -1,6 +1,9 @@
 package web;
 
+import com.baofoo.ps.rsa.RsaCodingUtil;
+import com.qing.niu.algorithm.encryption.three_des.ThreeDes;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +27,13 @@ import java.util.Set;
 @Controller
 public class WebServiceController {
 
+    /**
+     * 上海建行挡板服务
+     *
+     * @param request 请求
+     * @param response 响应
+     * @throws Exception 异常
+     */
     @RequestMapping(value = "/ccb/withold",method = RequestMethod.POST)
     public void ccbService(HttpServletRequest request, HttpServletResponse response) throws Exception{
         log.info("有服务进入.................................");
@@ -32,7 +42,6 @@ public class WebServiceController {
         for (Map.Entry<String,String[]> entry : set){
             log.info("key:{},value:{}",entry.getKey(),entry.getValue());
         }
-        log.info("收到报文：{}",request.toString());
         String res = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<Transaction>\n" +
                 "<Transaction_Header>\n" +
@@ -78,9 +87,28 @@ public class WebServiceController {
                 "</response>\n" +
                 "</Transaction_Body>\n" +
                 "</Transaction>";
-        String privateKeyPath = "D:\\data\\cfca\\ccb\\baofu@test_pri.pfx";
+        String resStr = res.replaceAll("\n","").replaceAll("\r","");
+        String privateKeyPath = "D:\\data\\cfca\\ccb\\ccb@test_pri.pfx";
         String privateKey = "123456";
-//        String sinatrue = RsaCodingUtil.encryptByPriPfxFile
-        response.getWriter().write(new String("欢迎访问!"));
+        String signture = RsaCodingUtil.encryptByPriPfxFile(resStr,privateKeyPath,privateKey);
+        log.debug("{}",signture);
+        log.debug("{}",signture.getBytes("UTF-8"));
+        byte[] signtureBytes = Base64.encodeBase64(signture.getBytes("UTF-8"));
+
+        String signtureLen = String.valueOf(signtureBytes.length);
+        StringBuilder prefixBuffer = new StringBuilder();
+        for (int i = 0; i < 10 - signtureLen.length(); i++){
+            prefixBuffer.append("0");
+        }
+        byte[] prefixBytes = prefixBuffer.append(signtureLen).toString().getBytes("UTF-8");
+        String resThreeDesStr = ThreeDes.encryptThreeDESECB(resStr,"Bu7KzIWrplmh4nVj0d2Htg==");
+        byte[] resThreeBytes = resThreeDesStr.getBytes("UTF-8");
+        byte[] resBytes = new byte[10 + signtureBytes.length + resThreeBytes.length];
+        System.arraycopy(prefixBytes,0,resBytes,0,10);
+        System.arraycopy(signtureBytes,0,resBytes,10,signtureBytes.length);
+        System.arraycopy(resThreeBytes,0,resBytes,10+signtureBytes.length,resThreeBytes.length);
+        log.info("输出流：{}",new String(resBytes,"UTF-8"));
+        response.setHeader("Content-type","text/html;charset=UTF-8");
+        response.getOutputStream().write(resBytes);
     }
 }
