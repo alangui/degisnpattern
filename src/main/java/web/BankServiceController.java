@@ -25,7 +25,7 @@ import java.util.Set;
  */
 @Slf4j
 @Controller
-public class WebServiceController {
+public class BankServiceController {
 
     /**
      * 上海建行挡板服务
