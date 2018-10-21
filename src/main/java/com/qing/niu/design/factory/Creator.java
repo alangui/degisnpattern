@@ -11,5 +11,5 @@ package com.qing.niu.design.factory;
  */
 public interface Creator {
 
-    Light createLight();
+    Light create();
 }

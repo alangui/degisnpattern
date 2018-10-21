@@ -11,7 +11,7 @@ package com.qing.niu.design.factory;
  */
 public class TubeCreator implements Creator{
     @Override
-    public Light createLight() {
+    public Light create() {
         return new TubeLight();
     }
 }
