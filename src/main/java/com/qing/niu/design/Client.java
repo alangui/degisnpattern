@@ -3,6 +3,8 @@ package com.qing.niu.design;
 import com.qing.niu.design.abstract_factory.*;
 import com.qing.niu.design.factory.*;
 import com.qing.niu.design.factory.Creator;
+import com.qing.niu.design.observer.Reader;
+import com.qing.niu.design.observer.Writer;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -44,6 +46,17 @@ public class Client {
         productB2.methodB();
         log.info("----------------------------");
 
-
+        log.info("观察者模式");
+        Reader r1 = new Reader("张三");
+        Reader r2 = new Reader("李四");
+        Reader r3 = new Reader("王五");
+        Writer writer = new Writer("赵六");
+        r1.subscribe(writer.getName());
+        r2.subscribe(writer.getName());
+        r3.subscribe(writer.getName());
+        writer.addNovel("我叫赵六");
+        r1.unSubcribe(writer.getName());
+        r2.unSubcribe(writer.getName());
+        writer.addNovel("我不叫赵六");
     }
 }
