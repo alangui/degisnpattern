@@ -5,6 +5,7 @@ import com.qing.niu.design.factory.*;
 import com.qing.niu.design.factory.Creator;
 import com.qing.niu.design.observer.Reader;
 import com.qing.niu.design.observer.Writer;
+import com.qing.niu.design.strategy.Customer;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -58,5 +59,17 @@ public class Client {
         r1.unSubcribe(writer.getName());
         r2.unSubcribe(writer.getName());
         writer.addNovel("我不叫赵六");
+        log.info("----------------------------");
+
+        log.info("策略模式");
+        Customer customer = new Customer();
+        customer.buy(900D);
+        log.info("客户需要付钱:{}",customer.calLastAmount());
+        customer.buy(200D);
+        log.info("客户需要付钱:{}",customer.calLastAmount());
+        customer.buy(900D);
+        log.info("客户需要付钱:{}",customer.calLastAmount());
+        customer.buy(1000D);
+        log.info("客户需要付钱:{}",customer.calLastAmount());
     }
 }
