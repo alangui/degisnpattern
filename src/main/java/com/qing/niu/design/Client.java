@@ -6,6 +6,7 @@ import com.qing.niu.design.factory.Creator;
 import com.qing.niu.design.observer.Reader;
 import com.qing.niu.design.observer.Writer;
 import com.qing.niu.design.strategy.Customer;
+import com.qing.niu.design.templet.MyPageBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -71,5 +72,10 @@ public class Client {
         log.info("客户需要付钱:{}",customer.calLastAmount());
         customer.buy(1000D);
         log.info("客户需要付钱:{}",customer.calLastAmount());
+        log.info("-----------------------------");
+
+        log.info("模版方法模式");
+        MyPageBuilder myPageBuilder = new MyPageBuilder();
+        log.info("我的页面:{}",myPageBuilder.buildHtml());
     }
 }
