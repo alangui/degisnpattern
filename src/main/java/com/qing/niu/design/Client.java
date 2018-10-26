@@ -1,6 +1,10 @@
 package com.qing.niu.design;
 
 import com.qing.niu.design.abstract_factory.*;
+import com.qing.niu.design.decorator.Component;
+import com.qing.niu.design.decorator.ConcreteComponent;
+import com.qing.niu.design.decorator.ConcreteDecoratorA;
+import com.qing.niu.design.decorator.ConcreteDecoratorB;
 import com.qing.niu.design.factory.*;
 import com.qing.niu.design.factory.Creator;
 import com.qing.niu.design.observer.Reader;
@@ -77,5 +81,19 @@ public class Client {
         log.info("模版方法模式");
         MyPageBuilder myPageBuilder = new MyPageBuilder();
         log.info("我的页面:{}",myPageBuilder.buildHtml());
+        log.info("-----------------------------");
+
+        log.info("装饰器模式");
+        Component component = new ConcreteComponent();
+        component.method();
+        ConcreteDecoratorA concreteDecoratorA = new ConcreteDecoratorA(component);
+        concreteDecoratorA.methodA();
+        concreteDecoratorA.method();
+        ConcreteDecoratorB concreteDecoratorB = new ConcreteDecoratorB(component);
+        concreteDecoratorB.methodB();
+        concreteDecoratorB.method();
+        concreteDecoratorB = new ConcreteDecoratorB(concreteDecoratorA);
+        concreteDecoratorB.method();
+        concreteDecoratorB.methodB();
     }
 }
