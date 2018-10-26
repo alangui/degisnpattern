@@ -1,6 +1,9 @@
 package com.qing.niu.design;
 
 import com.qing.niu.design.abstract_factory.*;
+import com.qing.niu.design.command.ProductManager;
+import com.qing.niu.design.command.Programmer;
+import com.qing.niu.design.command.Salesman;
 import com.qing.niu.design.decorator.Component;
 import com.qing.niu.design.decorator.ConcreteComponent;
 import com.qing.niu.design.decorator.ConcreteDecoratorA;
@@ -95,5 +98,28 @@ public class Client {
         concreteDecoratorB = new ConcreteDecoratorB(concreteDecoratorA);
         concreteDecoratorB.method();
         concreteDecoratorB.methodB();
+        log.info("------------------------------");
+
+        log.info("命令模式");
+        Programmer programmer1 = new Programmer("程序A");
+        ProductManager productManager = new ProductManager(programmer1);
+
+        Salesman salesman1 = new Salesman("1",productManager);
+        Salesman salesman2 = new Salesman("2",productManager);
+        Salesman salesman3 = new Salesman("3",productManager);
+        Salesman salesman4 = new Salesman("4",productManager);
+
+        salesman1.putDemand();
+        salesman1.putBug();
+        salesman1.putProblem();
+        salesman2.putProblem();
+        salesman3.putBug();
+        salesman4.putDemand();
+
+        productManager.assign();
+        productManager.printTaskList();
+        productManager.assign();
+        productManager.printTaskList();
+        log.info("-------------------------------");
     }
 }
