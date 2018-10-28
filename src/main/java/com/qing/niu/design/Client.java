@@ -1,10 +1,13 @@
 package com.qing.niu.design;
 
-import com.qing.niu.design.abstract_factory.*;
+import com.qing.niu.design.abstract_factory.Creator1;
+import com.qing.niu.design.abstract_factory.Creator2;
+import com.qing.niu.design.abstract_factory.ProductA;
+import com.qing.niu.design.abstract_factory.ProductB;
 import com.qing.niu.design.bridge.*;
-import com.qing.niu.design.bridge.Doppelganger;
-import com.qing.niu.design.bridge.Soul;
-import com.qing.niu.design.builder.*;
+import com.qing.niu.design.builder.DoppelgangerBuilder;
+import com.qing.niu.design.builder.FatBuilder;
+import com.qing.niu.design.builder.ThinBuilder;
 import com.qing.niu.design.command.ProductManager;
 import com.qing.niu.design.command.Programmer;
 import com.qing.niu.design.command.Salesman;
@@ -12,8 +15,11 @@ import com.qing.niu.design.decorator.Component;
 import com.qing.niu.design.decorator.ConcreteComponent;
 import com.qing.niu.design.decorator.ConcreteDecoratorA;
 import com.qing.niu.design.decorator.ConcreteDecoratorB;
-import com.qing.niu.design.factory.*;
+import com.qing.niu.design.factory.BuldCreator;
 import com.qing.niu.design.factory.Creator;
+import com.qing.niu.design.factory.Light;
+import com.qing.niu.design.factory.TubeCreator;
+import com.qing.niu.design.memo.Person;
 import com.qing.niu.design.observer.Reader;
 import com.qing.niu.design.observer.Writer;
 import com.qing.niu.design.strategy.Customer;
@@ -148,5 +154,22 @@ public class Client {
         doppelganger = soul1.createDoppelganger(doppelgangerBuilder1,"B");
         log.info("{}",doppelganger);
         log.info("-------------------------------");
+
+        log.info("备忘录模式");
+        com.qing.niu.design.memo.Soul s1 = new com.qing.niu.design.memo.Soul();
+        Person person1 = new Person("1");
+        person1.addStory("A");
+        person1.addStory("B");
+        person1.addStory("C");
+        person1.addStory("D");
+        s1.pullAllMemory(person1);
+        person1.addStory("不好的记忆");
+        log.info("{}",person1);
+        s1.forceFixMemory(person1);
+        log.info("{}",person1);
+        person1.addStory("E");
+        log.info("{}",person1);
+        log.info("-----------------------------");
+
     }
 }
