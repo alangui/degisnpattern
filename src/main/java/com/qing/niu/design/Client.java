@@ -1,6 +1,10 @@
 package com.qing.niu.design;
 
 import com.qing.niu.design.abstract_factory.*;
+import com.qing.niu.design.bridge.*;
+import com.qing.niu.design.bridge.Doppelganger;
+import com.qing.niu.design.bridge.Soul;
+import com.qing.niu.design.builder.*;
 import com.qing.niu.design.command.ProductManager;
 import com.qing.niu.design.command.Programmer;
 import com.qing.niu.design.command.Salesman;
@@ -120,6 +124,29 @@ public class Client {
         productManager.printTaskList();
         productManager.assign();
         productManager.printTaskList();
+        log.info("-------------------------------");
+
+        log.info("桥接模式");
+        Soul soul = new Doppelganger();
+        soul.setAppearance(new TRH());
+        soul.setSkills(new Invisible());
+        soul.doAllLikePeople();
+        soul.show();
+        soul.release();
+        soul.setAppearance(new Loser());
+        soul.show();
+        soul.setSkills(new ReadMind());
+        soul.release();
+        log.info("-------------------------------");
+
+        log.info("建造者模式");
+        com.qing.niu.design.builder.Soul soul1 = new com.qing.niu.design.builder.Soul();
+        DoppelgangerBuilder doppelgangerBuilder = new ThinBuilder();
+        com.qing.niu.design.builder.Doppelganger doppelganger = soul1.createDoppelganger(doppelgangerBuilder,"A");
+        log.info("{}",doppelganger);
+        DoppelgangerBuilder doppelgangerBuilder1 = new FatBuilder();
+        doppelganger = soul1.createDoppelganger(doppelgangerBuilder1,"B");
+        log.info("{}",doppelganger);
         log.info("-------------------------------");
     }
 }
