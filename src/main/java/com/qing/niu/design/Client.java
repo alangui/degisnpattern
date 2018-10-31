@@ -19,6 +19,8 @@ import com.qing.niu.design.factory.BuldCreator;
 import com.qing.niu.design.factory.Creator;
 import com.qing.niu.design.factory.Light;
 import com.qing.niu.design.factory.TubeCreator;
+import com.qing.niu.design.flyweight.HeroManager;
+import com.qing.niu.design.flyweight.Role;
 import com.qing.niu.design.memo.Person;
 import com.qing.niu.design.observer.Reader;
 import com.qing.niu.design.observer.Writer;
@@ -171,5 +173,11 @@ public class Client {
         log.info("{}",person1);
         log.info("-----------------------------");
 
+        log.info("享元模式");
+        HeroManager heroManager = HeroManager.getInstance();
+        Role role1 = new Role(heroManager.getHero("恶魔巫师"));
+        Role role2 = new Role(heroManager.getHero("小巧"));
+        Role role3 = new Role(heroManager.getHero("恶魔巫师"));
+        Role role4 = new Role(heroManager.getHero("小巧"));
     }
 }
