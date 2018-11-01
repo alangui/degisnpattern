@@ -29,6 +29,7 @@ import com.qing.niu.design.flyweight.Role;
 import com.qing.niu.design.memo.Person;
 import com.qing.niu.design.observer.Reader;
 import com.qing.niu.design.observer.Writer;
+import com.qing.niu.design.state.Hero;
 import com.qing.niu.design.strategy.Customer;
 import com.qing.niu.design.templet.MyPageBuilder;
 import lombok.extern.slf4j.Slf4j;
@@ -48,7 +49,7 @@ import java.util.Map;
 @Slf4j
 public class Client {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         log.info("工厂模式");
         Creator buldCreator = new BuldCreator();
         Light buldLight = buldCreator.create();
@@ -233,6 +234,17 @@ public class Client {
         print(mcSubbranch1);
         mcSubbranch1.handleOrder(new Order(900,20,order));
         print(mcSubbranch1);
+        log.info("-----------------------------");
+
+        log.info("状态模式");
+        Hero hero = new Hero();
+        hero.startRun();
+        Thread.sleep(5000L);
+        hero.setState(Hero.SPEED_UP);
+        Thread.sleep(5000L);
+        hero.setState(Hero.SPEED_DOWN);
+        Thread.sleep(5000L);
+        hero.setState(Hero.SWIM_STATE);
     }
 
     public static void display(String prefix, IFile iFile){
