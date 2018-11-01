@@ -8,6 +8,9 @@ import com.qing.niu.design.bridge.*;
 import com.qing.niu.design.builder.DoppelgangerBuilder;
 import com.qing.niu.design.builder.FatBuilder;
 import com.qing.niu.design.builder.ThinBuilder;
+import com.qing.niu.design.chain.McSubbranch;
+import com.qing.niu.design.chain.Order;
+import com.qing.niu.design.chain.Subbranch;
 import com.qing.niu.design.command.ProductManager;
 import com.qing.niu.design.command.Programmer;
 import com.qing.niu.design.command.Salesman;
@@ -29,6 +32,9 @@ import com.qing.niu.design.observer.Writer;
 import com.qing.niu.design.strategy.Customer;
 import com.qing.niu.design.templet.MyPageBuilder;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -203,6 +209,30 @@ public class Client {
         display(null,root);
         movie.getIFile(0).delete();
         display(null,root);
+        log.info("-----------------------------");
+
+        log.info("责任链模式");
+        Map<String,Integer> menu = new HashMap<>();
+        menu.put("汉堡", 5);
+        menu.put("薯条", 5);
+        menu.put("可乐", 5);
+        menu.put("雪碧", 5);
+        Subbranch mcSubbranch1 = new McSubbranch(0,0,new HashMap<String,Integer>(menu));
+        Subbranch mcSubbranch2 = new McSubbranch(100, 120, new HashMap<String, Integer>(menu));
+        Subbranch mcSubbranch3 = new McSubbranch(-100, -120, new HashMap<String, Integer>(menu));
+        Subbranch mcSubbranch4 = new McSubbranch(1000, 20, new HashMap<String, Integer>(menu));
+        Subbranch mcSubbranch5 = new McSubbranch(-500, 0, new HashMap<String, Integer>(menu));
+        mcSubbranch4.setSuccessor(mcSubbranch5);
+        mcSubbranch3.setSuccessor(mcSubbranch4);
+        mcSubbranch2.setSuccessor(mcSubbranch3);
+        mcSubbranch1.setSuccessor(mcSubbranch2);
+        Map<String,Integer> order = new HashMap<String,Integer>();
+        order.put("汉堡", 2);
+        order.put("可乐", 1);
+        order.put("薯条", 1);
+        print(mcSubbranch1);
+        mcSubbranch1.handleOrder(new Order(900,20,order));
+        print(mcSubbranch1);
     }
 
     public static void display(String prefix, IFile iFile){
@@ -221,5 +251,16 @@ public class Client {
                 }
             }
         }
+    }
+
+    public static void print(Subbranch subbranch){
+        if (subbranch == null ) {
+            return;
+        }
+        do {
+            if (subbranch instanceof McSubbranch) {
+                log.info("[{}]的菜单:{}",subbranch,((McSubbranch) subbranch).getMenu());
+            }
+        } while ((subbranch = ((McSubbranch) subbranch).getNextSubbranch()) != null);
     }
 }
