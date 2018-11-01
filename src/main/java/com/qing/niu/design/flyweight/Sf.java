@@ -18,6 +18,9 @@ public class Sf extends AbstractHero {
 
     @Override
     public void initSkills() {
-
+        skills[0] = "1技能";
+        skills[1] = "2技能";
+        skills[2] = "3技能";
+        skills[3] = "4技能";
     }
 }

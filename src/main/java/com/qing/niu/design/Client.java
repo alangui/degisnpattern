@@ -11,6 +11,8 @@ import com.qing.niu.design.builder.ThinBuilder;
 import com.qing.niu.design.command.ProductManager;
 import com.qing.niu.design.command.Programmer;
 import com.qing.niu.design.command.Salesman;
+import com.qing.niu.design.component.Folder;
+import com.qing.niu.design.component.IFile;
 import com.qing.niu.design.decorator.Component;
 import com.qing.niu.design.decorator.ConcreteComponent;
 import com.qing.niu.design.decorator.ConcreteDecoratorA;
@@ -179,5 +181,45 @@ public class Client {
         Role role2 = new Role(heroManager.getHero("小巧"));
         Role role3 = new Role(heroManager.getHero("恶魔巫师"));
         Role role4 = new Role(heroManager.getHero("小巧"));
+        log.info("-----------------------------");
+
+        log.info("组合模式");
+        IFile root = new Folder("我的电脑");
+        root.createNewFile("C盘");
+        root.createNewFile("D盘");
+        root.createNewFile("E盘");
+        IFile D = root.getIFile(1);
+        D.createNewFile("project");
+        D.createNewFile("电影");
+        IFile project = D.getIFile(0);
+        project.createNewFile("1.java");
+        project.createNewFile("2.java");
+        project.createNewFile("3.java");
+        IFile movie = D.getIFile(1);
+        movie.createNewFile("致青春.avi");
+        movie.createNewFile("速度与激情.avi");
+        display(null,root);
+        project.delete();
+        display(null,root);
+        movie.getIFile(0).delete();
+        display(null,root);
+    }
+
+    public static void display(String prefix, IFile iFile){
+        if (null == prefix){
+            prefix = "";
+        }
+        log.info("{}",prefix+iFile.getName());
+        if (iFile instanceof Folder){
+            for (int i = 0; ;i++){
+                try {
+                    if (iFile.getIFile(i) != null){
+                        display(prefix+"--",iFile.getIFile(i));
+                    }
+                } catch (Exception e) {
+                    break;
+                }
+            }
+        }
     }
 }
