@@ -32,7 +32,7 @@ public class Hero {
 
     public void stop(){
         if (isRunning()){
-            runThread.isInterrupted();
+            runThread.interrupt();
         }
         log.info("----------停止跑动-----------");
     }

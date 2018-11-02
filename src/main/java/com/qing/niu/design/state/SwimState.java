@@ -21,7 +21,7 @@ public class SwimState implements RunState{
         try {
             Thread.sleep(2000L);
         } catch (InterruptedException e) {
-            log.info("{}", Throwables.getStackTraceAsString(e));
+            log.info("不能跑动异常:{}", Throwables.getStackTraceAsString(e));
         }
         hero.setState(Hero.COMMON);
         log.info("-------------不能跑动结束，状态恢复为正常------------");

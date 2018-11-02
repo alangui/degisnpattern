@@ -32,6 +32,7 @@ import com.qing.niu.design.observer.Writer;
 import com.qing.niu.design.state.Hero;
 import com.qing.niu.design.strategy.Customer;
 import com.qing.niu.design.templet.MyPageBuilder;
+import com.qing.niu.design.visitor.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
@@ -245,6 +246,25 @@ public class Client {
         hero.setState(Hero.SPEED_DOWN);
         Thread.sleep(5000L);
         hero.setState(Hero.SWIM_STATE);
+        Thread.sleep(5000L);
+        hero.stop();
+        log.info("-----------------------------");
+
+        log.info("访问者模式");
+        AccountBook accountBook = new AccountBook();
+        //添加两条收入
+        accountBook.addBill(new IncomeBill(1000000,"卖软件"));
+        accountBook.addBill(new IncomeBill(2000000,"售后"));
+        //添加两条支出
+        accountBook.addBill(new ConsumeBill(50000,"工资"));
+        accountBook.addBill(new ConsumeBill(100000,"固定投资"));
+        AccountBookViewer boss = new Boss();
+        AccountBookViewer cpa = new Cpa();
+        accountBook.show(boss);
+        ((Boss)boss).getTotalIncome();
+        ((Boss)boss).getTotalConsume();
+        accountBook.show(cpa);
+        log.info("-----------------------------");
     }
 
     public static void display(String prefix, IFile iFile){

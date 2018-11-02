@@ -21,7 +21,8 @@ public class CommonState implements RunState{
         try {
             Thread.sleep(1000L);
         } catch (InterruptedException e) {
-            log.info("{}", Throwables.getStackTraceAsString(e));
+            log.info("正常跑动异常:{}", Throwables.getStackTraceAsString(e));
+            Thread.currentThread().interrupt();
         }
     }
 }

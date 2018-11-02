@@ -21,7 +21,7 @@ public class SpeedDownState implements RunState{
         try {
             Thread.sleep(2000L);
         } catch (InterruptedException e) {
-            log.info("{}", Throwables.getStackTraceAsString(e));
+            log.info("减速跑动异常:{}", Throwables.getStackTraceAsString(e));
         }
         hero.setState(Hero.COMMON);
         log.info("----------减速结束，状态恢复正常----------");
